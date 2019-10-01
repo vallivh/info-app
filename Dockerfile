@@ -11,11 +11,9 @@ RUN R -e "install.packages(c('shiny', 'shinydashboard', 'mongolite', 'nycflights
           repos='https://cran.r-project.org')"
 
 COPY ./shiny-server.conf /srv/shiny-server/shiny-server.conf
-COPY ./logs /var/log/shiny-server/
+COPY shiny-server.sh /usr/bin/shiny-server.sh
 COPY ./app.R /srv/shiny-server/
 
 EXPOSE 3838
-
-COPY shiny-server.sh /usr/bin/shiny-server.sh
 
 RUN ["chmod", "+x", "/usr/bin/shiny-server.sh"]
