@@ -7,7 +7,7 @@ library(nycflights13)
 m <-
   mongo(collection = "flights",
         db = "test",
-        url = "mongodb://localhost:27017/")
+        url = "mongodb://mongodb:27017/")
 m$drop()
 
 ui <- dashboardPage(
@@ -23,12 +23,12 @@ ui <- dashboardPage(
 server <- function(input, output) {
 
   cc <- reactiveVal(m$count())
-  
+
   observeEvent(input$count, {
     m$insert(flights)
     cc(m$count())
   })
-  
+
   output$ibox <- renderInfoBox({
     infoBox("Title",
             cc(),
