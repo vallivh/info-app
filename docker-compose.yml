@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  info-app:
+    image: vallivh/info-app
+    ports:
+      - 80:3838
+    networks:
+      - net
+  mongodb:
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+    networks:
+      - net
+
+networks:
+  net:
