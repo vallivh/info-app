@@ -8,6 +8,7 @@ services:
       - 80:3838
     depends_on:
       - mongodb
+      # - spacy
   mongodb:
     image: mongo
     container_name: mongodb
@@ -16,3 +17,11 @@ services:
       - 27017:27017
     volumes:
       - ./mongo/data:/data/db
+  # spacy:
+  #   build:
+  #     context: ./conda
+  #   container_name: spacy
+  #   ports:
+  #     - 8888:8888
+  #   volumes:
+  #     - ./conda/opt:/opt/conda
