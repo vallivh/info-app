@@ -17,11 +17,7 @@ RUN R -e "install.packages(c('shiny', \
 COPY ./shinyserver/shiny-server.conf /srv/shiny-server/shiny-server.conf
 COPY ./shinyserver/shiny-server.sh /usr/bin/shiny-server.sh
 COPY ./app.R /srv/shiny-server/
-<<<<<<< HEAD
 COPY ./mongo/data /data/db
-=======
-COPY ./mongo/data:/data/db
->>>>>>> 70f5204dc66cde84b56bbf4f821ac29e6623d9f1
 
 EXPOSE 3838
 
