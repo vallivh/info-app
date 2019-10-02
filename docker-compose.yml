@@ -1,19 +1,21 @@
 version: '3'
 
 services:
-  info-app:
+  app:
     image: vallivh/info-app
+    container_name: app
     ports:
       - 80:3838
-    networks:
-      - net
   mongodb:
     image: mongo
+    container_name: mongodb
     restart: always
     ports:
       - 27017:27017
-    networks:
-      - net
-
-networks:
-  net:
+    volumes:
+      - ./mongo/data:/data/db
+  conda:
+    image: continuumio/miniconda3
+    container_name: conda
+    ports:
+      - 8888:8888
