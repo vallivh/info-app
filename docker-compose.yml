@@ -6,6 +6,8 @@ services:
     container_name: app
     ports:
       - 80:3838
+    depends_on:
+      - mongodb
   mongodb:
     image: mongo
     container_name: mongodb
@@ -14,8 +16,3 @@ services:
       - 27017:27017
     volumes:
       - ./mongo/data:/data/db
-  conda:
-    image: continuumio/miniconda3
-    container_name: conda
-    ports:
-      - 8888:8888
