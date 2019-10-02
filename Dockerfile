@@ -10,8 +10,8 @@ RUN apt-get update && apt-get install -y gnupg2 \
 RUN R -e "install.packages(c('shiny', 'shinydashboard', 'mongolite', 'nycflights13'), \
           repos='https://cran.r-project.org')"
 
-COPY ./shiny-server.conf /srv/shiny-server/shiny-server.conf
-COPY shiny-server.sh /usr/bin/shiny-server.sh
+COPY ./shiny server/shiny-server.conf /srv/shiny-server/shiny-server.conf
+COPY ./shiny server/shiny-server.sh /usr/bin/shiny-server.sh
 COPY ./app.R /srv/shiny-server/
 
 EXPOSE 3838
