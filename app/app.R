@@ -4,10 +4,9 @@ library(shinydashboard)
 library(mongolite)
 library(nycflights13)
 
-m <-
-  mongo(collection = "flights",
-        db = "test",
-        url = "mongodb://mongodb:27017/")
+m <- mongo(collection = "flights",
+           db = "test",
+           url = "mongodb://mongodb:27017/")
 m$drop()
 
 ui <- dashboardPage(
@@ -37,7 +36,8 @@ server <- function(input, output) {
   output$vbox <- renderValueBox({
     valueBox("Title",
              input$count,
-             icon = icon("credit-card"))
+             icon = icon("credit-card"),
+             color = "green")
   })
 }
 

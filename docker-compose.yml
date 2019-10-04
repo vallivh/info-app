@@ -2,13 +2,15 @@ version: '3'
 
 services:
   app:
-    image: vallivh/info-app
+    build:
+      context: ./app
     container_name: app
     ports:
       - 80:3838
-    depends_on:
-      - mongodb
-      # - spacy
+      - 4387:4387
+    volumes:
+      - ./app:/srv/shiny-server/
+      - packages:/usr/local/lib/R/site-library
   mongodb:
     image: mongo
     container_name: mongodb
@@ -25,3 +27,17 @@ services:
   #     - 8888:8888
   #   volumes:
   #     - ./conda/opt:/opt/conda
+  rstudio:
+    image: rocker/rstudio
+    container_name: rstudio
+    environment:
+      - PASSWORD=test
+#      - ADD=shiny
+    ports:
+      - 8787:8787
+    volumes:
+      - .:/home/rstudio/info-app
+      - packages:/usr/local/lib/R/site-library
+
+volumes:
+  packages:
