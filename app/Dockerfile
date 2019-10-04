@@ -16,6 +16,7 @@ RUN R -e "install.packages(c('shiny', \
 
 COPY ./shinyserver/shiny-server.conf /srv/shiny-server/shiny-server.conf
 COPY ./shinyserver/shiny-server.sh /usr/bin/shiny-server.sh
+COPY ./app /srv/shiny-server/
 
 EXPOSE 3838
 
