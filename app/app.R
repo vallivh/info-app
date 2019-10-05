@@ -37,7 +37,7 @@ server <- function(input, output) {
     valueBox("Title",
              input$count,
              icon = icon("credit-card"),
-             color = "green")
+             color = "yellow")
   })
 }
 
