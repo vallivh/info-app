@@ -7,10 +7,11 @@ services:
     container_name: app
     ports:
       - 80:3838
-      - 4387:4387
     volumes:
       - ./app:/srv/shiny-server/
       - packages:/usr/local/lib/R/site-library
+    depends_on:
+      - mongodb
   mongodb:
     image: mongo
     container_name: mongodb
@@ -19,14 +20,14 @@ services:
       - 27017:27017
     volumes:
       - ./mongo/data:/data/db
-  # spacy:
-  #   build:
-  #     context: ./conda
-  #   container_name: spacy
-  #   ports:
-  #     - 8888:8888
-  #   volumes:
-  #     - ./conda/opt:/opt/conda
+  spacy:
+    build:
+      context: ./conda
+    container_name: spacy
+    ports:
+      - 8888:8888
+    volumes:
+      - conda:/opt/conda
   rstudio:
     image: rocker/rstudio
     container_name: rstudio
@@ -38,6 +39,10 @@ services:
     volumes:
       - .:/home/rstudio/info-app
       - packages:/usr/local/lib/R/site-library
+      - conda:/home/rstudio/miniconda
+    depends_on:
+      - app
 
 volumes:
   packages:
+  conda:

@@ -1,15 +1,16 @@
 FROM continuumio/miniconda3
 
-ENTRYPOINT ["/bin/bash", "-c"]
+RUN conda update -y -n base -c defaults conda && \
+    conda install -y python=3.6 && \
+    conda install -y -c conda-forge spacy
 
-RUN conda update -y -n base -c defaults conda \
-    && conda install -y -c conda-forge spacy
+RUN conda create -y -n spacy_condaenv python=3.6 && \
+    conda install -y -n spacy_condaenv spacy
 
-RUN conda create -y -n spacy_condaenv spacy
-# RUN conda init bash \
-#     && conda activate spacy_condaenv
+RUN echo "source activate spacy_condaenv" > ~/.bashrc
+ENV PATH /opt/conda/envs/spacy_condaenv/bin:$PATH
 
-RUN python -m spacy download en_core_web_sm && \
-    python -m spacy download de_core_news_sm
+RUN python -m spacy download en && \
+    python -m spacy download de
 
-CMD ["source activate spacy_condaenv"]
+ENV PATH /home/rstudio/miniconda/bin:$PATH
