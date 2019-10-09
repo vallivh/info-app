@@ -8,7 +8,6 @@ library(spacyr)
 m <- mongo(collection = "flights",
            db = "test",
            url = "mongodb://mongodb:27017/")
-m$drop()
 
 # s <- try(spacy_initialize())
 # if (inherits(s, "try-error")) {
@@ -31,7 +30,8 @@ server <- function(input, output) {
   cc <- reactiveVal(m$count())
 
   observeEvent(input$count, {
-    spacy_initialize()
+    spacy_initialize(python_executable = "/opt/conda/envs/spacy_condaenv/bin/python")
+    spacy_initialize(python_executable = "/home/rstudio/miniconda/spacy_condaenv/bin/python")
     m$insert(flights)
     cc(m$count())
     spacy_finalize()
@@ -46,7 +46,7 @@ server <- function(input, output) {
     valueBox("Title",
              input$count,
              icon = icon("credit-card"),
-             color = "yellow")
+             color = "green")
   })
 }
 

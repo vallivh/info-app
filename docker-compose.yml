@@ -10,8 +10,10 @@ services:
     volumes:
       - ./app:/srv/shiny-server/
       - packages:/usr/local/lib/R/site-library
+      - conda:/opt/conda
     depends_on:
       - mongodb
+      - spacy
   mongodb:
     image: mongo
     container_name: mongodb
@@ -28,6 +30,7 @@ services:
       - 8888:8888
     volumes:
       - conda:/opt/conda
+      - mini:/home/rstudio/miniconda
   rstudio:
     image: rocker/rstudio
     container_name: rstudio
@@ -39,10 +42,14 @@ services:
     volumes:
       - .:/home/rstudio/info-app
       - packages:/usr/local/lib/R/site-library
-      - conda:/home/rstudio/miniconda
+      - conda:/opt/conda
+      - mini:/home/rstudio/miniconda
     depends_on:
       - app
+      - spacy
 
 volumes:
   packages:
+# choose one of the following / find out where to save for shiny server
   conda:
+  mini:
