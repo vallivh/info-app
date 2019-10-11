@@ -9,12 +9,6 @@ m <- mongo(collection = "flights",
            db = "test",
            url = "mongodb://mongodb:27017/")
 
-# s <- try(spacy_initialize())
-# if (inherits(s, "try-error")) {
-#   spacy_install(prompt = FALSE)
-#   spacy_initialize()
-# }
-
 ui <- dashboardPage(
   dashboardHeader(title = "Dynamic boxes"),
   dashboardSidebar(),
@@ -31,7 +25,6 @@ server <- function(input, output) {
 
   observeEvent(input$count, {
     spacy_initialize(python_executable = "/opt/conda/envs/spacy_condaenv/bin/python")
-    spacy_initialize(python_executable = "/home/rstudio/miniconda/spacy_condaenv/bin/python")
     m$insert(flights)
     cc(m$count())
     spacy_finalize()
@@ -46,7 +39,7 @@ server <- function(input, output) {
     valueBox("Title",
              input$count,
              icon = icon("credit-card"),
-             color = "green")
+             color = "orange")
   })
 }
 
