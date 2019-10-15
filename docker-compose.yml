@@ -1,4 +1,4 @@
-version: '3'
+version: '3.7'
 
 services:
   app:
@@ -15,22 +15,20 @@ services:
       - mongodb
       - spacy
   mongodb:
-    image: mongo
+    image: mongo:4.2.0
     container_name: mongodb
     restart: always
     ports:
       - 27017:27017
     volumes:
-      - ./mongo/data:/data/db
+      - db:/data/db
   spacy:
-    build:
-      context: ./conda
+    image: vallivh/spacyr:1.1
     container_name: spacy
     ports:
       - 8888:8888
     volumes:
       - conda:/opt/conda
-      - mini:/home/rstudio/miniconda
   rstudio:
     image: rocker/rstudio
     container_name: rstudio
@@ -43,13 +41,11 @@ services:
       - .:/home/rstudio/info-app
       - packages:/usr/local/lib/R/site-library
       - conda:/opt/conda
-      - mini:/home/rstudio/miniconda
     depends_on:
       - app
       - spacy
 
 volumes:
+  db:
   packages:
-# choose one of the following / find out where to save for shiny server
   conda:
-  mini:
