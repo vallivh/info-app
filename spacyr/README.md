@@ -8,6 +8,6 @@ You can use the container to run `spacyr` in RStudio (Server) or Shiny Server. M
 ```
 spacy_initialize(python_executable = "/opt/conda/envs/spacy_condaenv/bin/python")
 ```
-(or change `/opt/conda` your local directory if you are developing outside of Docker).
+(or change `/opt/conda` to your local directory if you are developing outside of Docker).
 
 You can find an exemplary docker-compose file at [vallivh/info-app](https://github.com/vallivh/info-app/blob/master/docker-compose.yml).
