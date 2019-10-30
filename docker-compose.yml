@@ -32,8 +32,10 @@ services:
   rstudio:
     image: rocker/rstudio
     container_name: rstudio
+    restart: on-failure
     environment:
       - PASSWORD=test
+      - DISABLE_AUTH=TRUE
 #      - ADD=shiny
     ports:
       - 8787:8787
