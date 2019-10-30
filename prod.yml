@@ -1,19 +1,35 @@
-version: '3'
+version: '3.7'
 
 services:
   app:
-    build:
-      context: ./app
+    image: vallivh/info-app:1.5
     container_name: app
     ports:
       - 80:3838
+    volumes:
+      - ./app:/srv/shiny-server/
+      - packages:/usr/local/lib/R/site-library
+      - conda:/opt/conda
     depends_on:
       - mongodb
+      - spacy
   mongodb:
-    image: mongo
+    image: mongo:4.2.0
     container_name: mongodb
     restart: always
     ports:
       - 27017:27017
     volumes:
-      - ./mongo/data:/data/db
+      - db:/data/db
+  spacy:
+    image: vallivh/spacyr:1.1
+    container_name: spacy
+    ports:
+      - 8888:8888
+    volumes:
+      - conda:/opt/conda
+
+volumes:
+  db:
+  packages:
+  conda:
